@@ -193,20 +193,7 @@ export default function WritingTest() {
     const responseID = params.get("responseID");
     console.log("✅ responseID:", responseID);
   }, []);
-  
 
-  useEffect(() => {
-    const returnURL = getReturnURL();
-  
-    // 👇 이 부분을 글 제출 시 실행
-    if (window.opener && !window.opener.closed) {
-      window.opener.location.href = returnURL;
-      window.close();
-    } else {
-      window.location.href = returnURL;
-    }
-  }, []);
-  
 
 
   // 🔥 Firestore에 데이터 저장하는 함수 추가
@@ -273,6 +260,15 @@ export default function WritingTest() {
       setWordCount(0);
       setWarning("");
       setProlificId(""); // ✨ 제출 성공 시 ID 초기화
+
+      const returnURL = getReturnURL();
+
+      if (window.opener && !window.opener.closed) {
+        window.opener.location.href = returnURL;
+        window.close();
+      } else {
+        window.location.href = returnURL;
+      }
 
     } catch (error) {
       console.error("🔥 An error occurred while saving data:", error.message);
