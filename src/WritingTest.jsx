@@ -27,6 +27,8 @@ export default function WritingTest() {
   const [isLevelTyping, setIsLevelTyping] = useState(false);
   const [isFullTextTyping, setIsFullTextTyping] = useState(false);
   const [hasTriggeredOnce, setHasTriggeredOnce] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
 
   const [warning, setWarning] = useState("");
   const [missingWords, setMissingWords] = useState([]);
@@ -245,6 +247,8 @@ export default function WritingTest() {
       setWordCount(0);
       setWarning("");
       setProlificId(""); // ✨ 제출 성공 시 ID 초기화
+      setIsSubmitted(true);
+
 
       console.log("🔁 Returning to:", getReturnURL());
 
@@ -353,6 +357,7 @@ export default function WritingTest() {
         </div>
       </div>
       </div>
+      
       {/* 경고 메시지 출력 */}
       {warning.length > 0 && (
           <div style={{ color: "red", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
@@ -361,6 +366,7 @@ export default function WritingTest() {
             ))}
           </div>
         )}
+
       {/* Submit 버튼 - 가장 아래로 배치 */}
       <button 
         onClick={handleSubmit} 
@@ -373,21 +379,23 @@ export default function WritingTest() {
 
       <a href={getReturnURL()}>
         <button
+          disabled={!isSubmitted}
           style={{
             marginTop: "20px",
             padding: "10px 20px",
-            backgroundColor: "#28a745",
+            backgroundColor: isSubmitted ? "#28a745" : "#ccc",
             color: "white",
             fontWeight: "bold",
             border: "none",
             borderRadius: "5px",
-            cursor: "pointer",
-            fontSize: "16px"
+            cursor: isSubmitted ? "pointer" : "not-allowed",
+            fontSize: "16px",
+            opacity: isSubmitted ? 1 : 0.5
           }}>
           Return to survey
         </button>
       </a>
-
+    
     </div>
   );
 }
