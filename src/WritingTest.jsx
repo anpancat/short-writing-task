@@ -371,6 +371,10 @@ export default function WritingTest() {
         Submit
       </button>
 
+      <a href={getReturnURL()}>
+        <button style={{ marginTop: "20px" }}>설문 계속하기</button>
+      </a>
+
     </div>
   );
 }
