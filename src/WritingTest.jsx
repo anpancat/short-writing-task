@@ -15,7 +15,7 @@ export default function WritingTest() {
   const typingText = "...DraftMind is typing..."; //입력중
   const hello = "Hello! I’m 'Draft Mind', an AI designed to help with writing. \n It looks like you’re crafting a story. I’d be happy to assist!"; // 인사말
   const level = "Based on general writing principles and storytelling strategies, I will provide assistance that is generally suitable for writers like you."; // 개인화 수준 명시(낮은 개인화)
-  const fullText = "To maintain this style while developing your story into a more engaging narrative, it would be beneficial to describe the introduction in more detail. \n This will enhance the immersion of your story. Try adjusting it as shown in the example below! \n \n ex) 'A gentle breeze carried the scent of earth and rain, weaving through the quiet streets as the distant hum of city life echoed in the background. \n The dim glow of streetlights flickered softly, casting long shadows that stretched across the pavement.'"; // 도움 내용(낮은 개인화)&예시시
+  const fullText = "To maintain this style while developing your story into a more engaging narrative, it would be beneficial to describe the introduction in more detail. \n This will enhance the immersion of your story. I'll give you an example sentence below, so add it to your writing! \n \n ex) 'A gentle breeze carried the scent of earth and rain, weaving through the quiet streets as the distant hum of city life echoed in the background. \n The dim glow of streetlights flickered softly, casting long shadows that stretched across the pavement.'"; // 도움 내용(낮은 개인화)&예시시
 
   const [typingIndex, setTypingIndex] = useState(0);
   const [helloIndex, setHelloIndex] = useState(0);
@@ -137,7 +137,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(hello.slice(0, helloIndex + 1));
         setHelloIndex(helloIndex + 1);
-      }, 30);
+      }, 35);
       return () => clearTimeout(timer);
     }
 
@@ -156,7 +156,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(level.slice(0, levelIndex + 1));
         setLevelIndex(levelIndex + 1);
-      }, 30);
+      }, 35);
       return () => clearTimeout(timer);
     }
 
@@ -175,7 +175,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(fullText.slice(0, fullTextIndex + 1));
         setFullTextIndex(fullTextIndex + 1);
-      }, 30);
+      }, 35);
 
       return () => clearTimeout(timer);
     }
