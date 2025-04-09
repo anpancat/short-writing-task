@@ -117,7 +117,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(typingText.slice(0, typingIndex + 1));
         setTypingIndex(typingIndex + 1);
-      }, 100);
+      }, 50);
 
       return () => clearTimeout(timer);
     }
@@ -127,7 +127,7 @@ export default function WritingTest() {
         setIsTypingTextComplete(true);
         setDisplayText(""); // 다음 메시지 시작 전 초기화
         setIsHelloTyping(true);
-      }, 2000);
+      }, 1000);
     }
   }, [typingIndex, isTypingTextComplete, hasTriggeredOnce]);
 
@@ -137,7 +137,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(hello.slice(0, helloIndex + 1));
         setHelloIndex(helloIndex + 1);
-      }, 50);
+      }, 30);
       return () => clearTimeout(timer);
     }
 
@@ -146,7 +146,7 @@ export default function WritingTest() {
         setDisplayText(""); // 개인화수준 타이핑 시작 전 초기화
         setIsHelloTyping(false);
         setIsLevelTyping(true);
-      }, 2000);
+      }, 1000);
     }
   }, [helloIndex, isHelloTyping]);
 
@@ -156,7 +156,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(level.slice(0, levelIndex + 1));
         setLevelIndex(levelIndex + 1);
-      }, 50);
+      }, 30);
       return () => clearTimeout(timer);
     }
 
@@ -165,7 +165,7 @@ export default function WritingTest() {
         setDisplayText(""); // 다음 메시지 시작 전 초기화
         setIsLevelTyping(false);
         setIsFullTextTyping(true);
-      }, 2000);
+      }, 1000);
     }
   }, [levelIndex, isLevelTyping]);
 
@@ -175,7 +175,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(fullText.slice(0, fullTextIndex + 1));
         setFullTextIndex(fullTextIndex + 1);
-      }, 50);
+      }, 30);
 
       return () => clearTimeout(timer);
     }
