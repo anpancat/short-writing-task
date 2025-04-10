@@ -27,7 +27,10 @@ export default function WritingTest() {
   const [isLevelTyping, setIsLevelTyping] = useState(false);
   const [isFullTextTyping, setIsFullTextTyping] = useState(false);
   const [hasTriggeredOnce, setHasTriggeredOnce] = useState(false);
+  const [hasFeedbackStarted, setHasFeedbackStarted] = useState(false); // 피드백 시작 여부 상태 추가
 
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
+  const [showInputLockMessage, setShowInputLockMessage] = useState(false);
 
   const [warning, setWarning] = useState("");
   const [missingWords, setMissingWords] = useState([]);
@@ -35,6 +38,10 @@ export default function WritingTest() {
   // ✨ Prolific ID 상태 추가
   const [prolificId, setProlificId] = useState("");
 
+  // 🔥 입력 잠금 메시지 상태 추가
+  useEffect(() => {
+    setShowInputLockMessage(isInputDisabled);
+  }, [isInputDisabled]);
 
   const handleChange = (e) => {
     const newText = e.target.value;
@@ -48,6 +55,8 @@ export default function WritingTest() {
   
     if (!englishPattern.test(newText) || containsKorean) {
       warningMessages.push("Please write in English. Non-English characters are detected.");
+      setWarning(warningMessages); 
+      return; // ✅ 여기서 종료
     }
   
     // 🔥 단어 수 계산 (입력된 텍스트가 비어있으면 0으로 설정)
@@ -64,20 +73,18 @@ export default function WritingTest() {
   
       // 🔥 중복 단어 비율 계산 (전체 단어의 50% 이상이 동일한 단어면 경고)
       const overusedWords = Object.entries(wordCounts)
-        .filter(([_, count]) => count / words.length > 0.5)
+        .filter(([_, count]) => count / words.length > 0.3)
         .map(([word]) => word);
   
-      let filteredWords = words;
       if (overusedWords.length > 0) {
-        filteredWords = words.filter((word) => !overusedWords.includes(word));
+        words = words.filter((word) => !overusedWords.includes(word));
         warningMessages.push(`Too many repeated words: ${overusedWords.join(", ")}`);
       }
   
-      setWordCount(filteredWords.length); // ✅ 단어 수 정상적으로 업데이트
-    } else {
-      setWordCount(words.length); // 1단어만 입력되었을 때도 정상적으로 카운트
-    }
+    } 
+    setWordCount(words.length); // 1단어만 입력되었을 때도 정상적으로 카운트
   
+
     // 🔥 필수 단어 포함 여부 확인 (대소문자 구분 없이 검사)
     const missing = requiredWords.filter((word) =>
       !words.some((w) => w.toLowerCase().replace(/[.,!?]/g, "") === word.toLowerCase()) // 🔥 문장부호 제거 후 비교
@@ -96,6 +103,9 @@ export default function WritingTest() {
 
   useEffect(() => {
     if (wordCount >= 30 && !hasTriggeredOnce) {
+      setIsInputDisabled(true); // ✅ 입력창 비활성화 추가
+      setHasFeedbackStarted(true); // ✅ 피드백 시작 표시
+
       setDisplayText("");
       setTypingIndex(0);
       setHelloIndex(0);
@@ -109,7 +119,7 @@ export default function WritingTest() {
 
       setHasTriggeredOnce(true);
     }
-  }, [wordCount, hasTriggeredOnce]);
+  }, [wordCount, hasTriggeredOnce, hasFeedbackStarted]);
 
   // 입력중.. 문구 타이핑효과
   useEffect(() => {
@@ -118,7 +128,6 @@ export default function WritingTest() {
         setDisplayText(typingText.slice(0, typingIndex + 1));
         setTypingIndex(typingIndex + 1);
       }, 50);
-
       return () => clearTimeout(timer);
     }
 
@@ -273,7 +282,14 @@ export default function WritingTest() {
           value={text}
           onChange={(e) => handleChange(e)}
           placeholder="Start writing here..."
+          disabled={isInputDisabled} // ✅ 비활성화 반영
         />
+        
+        {showInputLockMessage && (
+          <p style={{ color: "gray", fontWeight: "bold", fontSize: "14px", marginTop: "5px" }}>
+            ✨ DraftMind is writing. Please wait for seconds...
+          </p>
+        )}
       </div>
 
       {/* ✨ Prolific ID 입력 필드 추가 */}
