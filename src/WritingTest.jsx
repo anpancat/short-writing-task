@@ -146,7 +146,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(hello.slice(0, helloIndex + 1));
         setHelloIndex(helloIndex + 1);
-      }, 35);
+      }, 25);
       return () => clearTimeout(timer);
     }
 
@@ -165,7 +165,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(level.slice(0, levelIndex + 1));
         setLevelIndex(levelIndex + 1);
-      }, 35);
+      }, 25);
       return () => clearTimeout(timer);
     }
 
@@ -184,7 +184,7 @@ export default function WritingTest() {
       const timer = setTimeout(() => {
         setDisplayText(fullText.slice(0, fullTextIndex + 1));
         setFullTextIndex(fullTextIndex + 1);
-      }, 35);
+      }, 25);
 
       return () => clearTimeout(timer);
     }
