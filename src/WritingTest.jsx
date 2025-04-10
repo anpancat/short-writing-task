@@ -188,6 +188,12 @@ export default function WritingTest() {
 
       return () => clearTimeout(timer);
     }
+    if (isFullTextTyping && fullTextIndex >= fullText.length) {
+      setTimeout(() => {
+        setIsFullTextTyping(false);
+        setIsInputDisabled(false); // ✅ 입력창 다시 활성화
+      }, 1000);
+    }
   }, [fullTextIndex, isFullTextTyping]);
 
 
@@ -284,7 +290,7 @@ export default function WritingTest() {
           placeholder="Start writing here..."
           disabled={isInputDisabled} // ✅ 비활성화 반영
         />
-        
+
         {showInputLockMessage && (
           <p style={{ color: "gray", fontWeight: "bold", fontSize: "14px", marginTop: "5px" }}>
             ✨ DraftMind is writing. Please wait for seconds...
