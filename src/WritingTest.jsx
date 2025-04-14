@@ -308,6 +308,9 @@ export default function WritingTest() {
           placeholder="Enter your ID"
           style={{ padding: "5px", fontSize: "14px", width: "200px" }}
         />
+        <span style={{ fontSize: "12px", color: "gray" }}>
+        ✅Please make sure to complete the survey after submitting.
+        </span>
       </div>
 
 
