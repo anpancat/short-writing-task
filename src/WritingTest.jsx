@@ -203,10 +203,10 @@ export default function WritingTest() {
 
     // 단어 수 체크
     if (wordCount < 100) {
-      errorMessages.push("❌ Word count is too low (minimum 150 words).");
+      errorMessages.push("❌ Word count is too low (minimum 100 words).");
     }
     if (wordCount > 150) {
-      errorMessages.push("❌ Word count exceeds the limit (maximum 200 words).");
+      errorMessages.push("❌ Word count exceeds the limit (maximum 150 words).");
     }
 
     // 영어 여부 검사
