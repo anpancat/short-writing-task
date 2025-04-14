@@ -71,7 +71,7 @@ export default function WritingTest() {
         wordCounts[word] = (wordCounts[word] || 0) + 1;
       });
   
-      // 🔥 중복 단어 비율 계산 (전체 단어의 50% 이상이 동일한 단어면 경고)
+      // 🔥 중복 단어 비율 계산 (전체 단어의 30% 이상이 동일한 단어면 경고)
       const overusedWords = Object.entries(wordCounts)
         .filter(([_, count]) => count / words.length > 0.3)
         .map(([word]) => word);
@@ -102,7 +102,7 @@ export default function WritingTest() {
   
 
   useEffect(() => {
-    if (wordCount >= 30 && !hasTriggeredOnce) {
+    if (wordCount >= 20 && !hasTriggeredOnce) {
       setIsInputDisabled(true); // ✅ 입력창 비활성화 추가
       setHasFeedbackStarted(true); // ✅ 피드백 시작 표시
 
@@ -202,10 +202,10 @@ export default function WritingTest() {
     let errorMessages = []; 
 
     // 단어 수 체크
-    if (wordCount < 150) {
+    if (wordCount < 100) {
       errorMessages.push("❌ Word count is too low (minimum 150 words).");
     }
-    if (wordCount > 200) {
+    if (wordCount > 150) {
       errorMessages.push("❌ Word count exceeds the limit (maximum 200 words).");
     }
 
@@ -279,7 +279,7 @@ export default function WritingTest() {
       {/* 사용자가 글 작성하는 영역 */}
       <div style={{ width: "80%", textAlign: "left", marginBottom: "10px" }}> 
         <h1>📝 Short Writing Task</h1>
-        <p>Write a prompt (150-200 words) about the following words:</p>
+        <p>Write a prompt (100-150 words) about the following words:</p>
         <p style={{ color: "red", fontWeight: "bold" }}>{requiredWords.join(", ")}</p>
         <p className="mt-2">Word Count: {wordCount}</p>
 
